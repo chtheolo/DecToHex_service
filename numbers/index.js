@@ -1,9 +1,15 @@
 const express = require('express');
-const convert = require('../convertions/decTohex');
+const convert = require('../conversions/decTohex');
 
 /** ------- POST -------- */
-exports.post = function(req, res) {
-    let hex_number = convert.Dec2Hex(req.body.decimal);
-
-    return res.status(200).send(hex_number);
+exports.post = async function(req, res) {
+    await convert.Dec2Hex(req.body.decimal)
+    .then(result => {
+        return res.status(200).send({
+            hexadecimal: result
+        });
+    })
+    .catch(error => {
+        return res.status(402).send(error);
+    })
 }
