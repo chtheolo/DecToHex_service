@@ -1,0 +1,29 @@
+{
+  "name": "dectohex_service",
+  "version": "1.0.0",
+  "description": "A service in Node that receives decimal numbers and responses with the hexadecimal representation.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chtheolo/DecToHex_service.git"
+  },
+  "author": "Chris Theologou",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chtheolo/DecToHex_service/issues"
+  },
+  "homepage": "https://github.com/chtheolo/DecToHex_service#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "pg": "^8.6.0"
+  },
+  "devDependencies": {
+    "mocha": "^9.0.2"
+  }
+}
