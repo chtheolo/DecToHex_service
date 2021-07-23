@@ -38,11 +38,8 @@ exports.post = async function (data) {
                     val_arr.push(data[key]);
                     i++;
                 }
-                console.log(columns);
-                console.log(values);
-                console.log(val_arr);
 
-                client.query('INSERT INTO "conversions"(' + columns + ') VALUES (' + values + ')', val_arr, (error, results) => {
+                client.query('INSERT INTO conversions(' + columns + ') VALUES (' + values + ')', val_arr, (error, results) => {
                     release();
                     if (error) {
                         reject(error);
