@@ -18,7 +18,6 @@ exports.Dec2Hex = async function(decimal) {
                 reject("Conversion Error! You gave a number but is NOT an integer!");
             }
             else {
-                console.log("Enter a valid number");
                 const zero_ascii = 48;
                 const caps_asscii_minus10 = 55;
                 const base = 16;
