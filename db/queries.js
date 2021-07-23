@@ -4,8 +4,7 @@ const config = require('../config/main');
 
 const pool = new Pool({
     user: config.development.db_user,
-    // host: config.development.db_host,
-    host: 'db',
+    host: 'db',                             // container host from our docker-compose.yml
     database: config.development.db_name,
     password: config.development.db_password,
     post: config.development.db_port
@@ -14,7 +13,7 @@ const pool = new Pool({
 
 /** This function is responsible to create a thread pool
  *  and save our data to our postgresql DB. */
-exports.post = async function (data) {
+exports.insert = async function (data) {
     return new Promise((resolve, reject) => {
         pool.connect((error, client, release) => {
             if (error) {
@@ -46,7 +45,7 @@ exports.post = async function (data) {
                     }
                     else {
                         resolve({
-                            message: 'Insert query sucessfully saved to DB!',
+                            message: 'Insertion complete sucessfully!',
                             success: 1
                         });
                     }
@@ -54,4 +53,26 @@ exports.post = async function (data) {
             }
         });
     });
+}
+
+exports.select = async function(query) {
+    return new Promise((resolve, reject) => {
+        pool.connect((error, client, release) => {
+            if (error) {
+                reject(error);
+            }
+            else {
+                client.query(query , (error, results) => {
+                    release();
+                    if (error) {
+                        reject(error);
+                    }
+                    else {
+                        resolve(results);
+                    }
+                });
+            }
+        });
+    });
+
 }
