@@ -592,9 +592,8 @@ In the conlusion, I would like to mention some extra work that I believe that it
 * Less code compared to embedded SQL and handwritten stored procedures
 
 ### C++ Nodejs Addons
-Javascript is not the best option for complex comptutations as it is slow because it running above the Node and V8 engine. All javascript code is passing to the V8 engine and it is converted in C++ code. Then the C++ code is compiled and generates the machine code which runs 
-into our computers. So it is better if you need to write software for complex computations to 
-write C++ directly which is faster and also provides a bin number of libraries for computations 
+Javascript is not the best option for complex comptutations as it is slow because it runs above the V8 engine. All javascript code is being passed to the V8 engine and then it is converted in C++ code. The C++ code is compiled and generates the machine code which runs 
+into our computers. So, if you need to write software that does complex computations, you should choose to develop it in C++ directly which is faster and also provides a large number of libraries for computations 
 ,and link the code with nodejs through the C++ addon method or through the NODE-API.
 
 ### More Unit Testing
