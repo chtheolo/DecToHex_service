@@ -1,5 +1,5 @@
 # DecToHex_service
-The purpose of this project is to create an API that gets integers and converts them to hexadecimal representation. It was developed in Node, Express, PostgreSQL and Docker containers.
+The purpose of this project is to create an API that gets decimal integers and converts them to hexadecimal representation. It was developed in Node, Express, PostgreSQL and Docker containers.
 
 # Contents
 * [How to install](#how-to-install)
@@ -17,7 +17,7 @@ The purpose of this project is to create an API that gets integers and converts 
 <a name="how-to-install"></a>
 ## How to install
 
-Firsly, you have to install [**docker**](https://docs.docker.com/engine/install/ubuntu/) and [**docker-compose**](https://docs.docker.com/compose/install/) in your machine.
+Firstly, you have to install [**docker**](https://docs.docker.com/engine/install/ubuntu/) and [**docker-compose**](https://docs.docker.com/compose/install/) in your machine.
 
 Next you have to install all the necessary dependencies from the package.json into the project directory by typing:
 
@@ -39,7 +39,7 @@ sudo docker-compose up --build
 sudo docker ps -a
 ```
 
-You will now have two running containers, one with our nodejs application and the other one with the postgreSQL.
+You will have two running containers now, one with our nodejs application and the second one with the postgreSQL.
 
 <a name="arch"></a>
 ## Architecture
@@ -50,9 +50,9 @@ The project's structure is divided into 6 logical parts.
 ### Server
 
 The main service file, **server.js**. As we see in the code below, we implement an **[Express.js](https://expressjs.com/)** 
-application and necessary libraries like **[cors()](http://expressjs.com/en/resources/middleware/cors.html)** and
-**[body-parser](http://expressjs.com/en/resources/middleware/body-parser.html)** which is a middleware that parse
-incoming request bodies before your handlers.
+application and import necessary libraries like **[cors()](http://expressjs.com/en/resources/middleware/cors.html)** and
+**[body-parser](http://expressjs.com/en/resources/middleware/body-parser.html)**. Body-parser 
+is a middleware that parse incoming request bodies before your handlers.
 
 ```javascript
 const express = require('express')
@@ -76,16 +76,14 @@ router(app);
 module.exports = server;
 ```
 
-The server now runs and in localhost:3000. Our file reads the port from the *config/main.js* file 
-which has all the configuration variables that we need for our project.
-Notice that, at the end of the file we call the *router(app)* which is the exported function from the **router.js** 
-and we pass as an argument to that function our Express.js application.
+The server now runs in localhost:3000. Our file reads the service port from the *config/main.
+js* file which has the configuration variables we need for our project.
+Notice that, at the end of the file we call the *router(app)* which is the exported function from the **router.js** file and we pass as an argument to that function our Express.js application.
 
 <a name="server"></a>
 ### Router
 
-In this file it is implemented all different routes for our application. This file is organized in **controllers**, **routes** and 
-our main function that has the Express.js application as parameter.
+This is the file where we implement all different routes for our application. This file is organized in **controllers**, **routes** and our main function that has as parameter the Express.js application.
 
 The **controllers** is a structure that imports every endpoint function.
 ```javascript
@@ -108,7 +106,7 @@ The **express.Router()** acts as a mini application. You can call an instance of
 and then define routes on that. This is very powerful because we can create multiple express.Router()s and then apply them to our
 application. This way we are allowed to make our applications more modular and flexible.
 
-This is what is being done in out function.
+So our complete file is the below code:
 ```javascript
 const express = require('express');
 
@@ -141,17 +139,15 @@ As we see, we use the router.use() which is a middleware in Express that give us
 request is processed.
 So, we have our main router with the *'/'* endpoint and every other router follows this. In our current application it is
 implemented only one extra endpoint, the */convert/decTohex*. 
-The logic behind the name of the endpoint is that, a user wants to make a number conversion. So the first endpoint name should be conversion. After that, the endpoint name depending on the user conversion choice.
+The logic behind the name of the endpoint is that, a user wants to make a number conversion. So the first endpoint name should be conversion. After that, the endpoint name is depending on the user conversion choice.
 For example, in this project is developed only decimal to hexadecimal conversion, so the client will hit the */convert/decTohex* endpoint.
-In an other case, we can assume that a client would need a different type of conversion, e.g. a decimal to binary. In that case,
-*/conversion/decTobin* endpoint would be responsible for that kind of requests.
+In an other case, we can assume that a client would need a different type of conversion, e.g. a decimal to binary. In that case, */conversion/decTobin* endpoint would be responsible for that kind of requests.
 
 
 <a name="numbers"></a>
 ### Numbers
 
-As a result, routing to each endpoint calls functions that will handle those requests. For conversion requests,
-we have the folder *numbers* in which is located an index.js file that contains the functions for POST and GET.
+As a result, routing to each endpoint calls functions that will handle those requests. For conversion requests, we have the folder *numbers* in which is located an index.js file that contains the functions for POST and GET.
 The post() function gets a client argument which is our decimal number in our case.
 
 ```javascript
@@ -181,8 +177,8 @@ exports.post = async function(req, res) {
 ```
 
 The decimal number is located in the body of the clients request and we can extraxt it by using the body-parser dependency.
-So, each time a user sends a post request to *conversions/decTohex*, it is being called the module that implements the conversion algorithm. 
-If the result is valid, we store some data, that will be discussed in the following section, into our PostgreSQL.
+So, each time a user sends a post request to *conversions/decTohex*, is being called the module that implements the conversion algorithm. 
+If the result is valid, we store some data, that it will be discussed in the following section, into our PostgreSQL.
 
 That *conversions/decTohex* also serves GET requests which are being handled by the *fetch()* function from our *numbers/index.js* file.
 
@@ -219,7 +215,7 @@ The client can built the GET request in one of those 4 simple forms as we see ab
 some simple requests but are also useful for extracting results about our API.
 The user can make a get request with queries, **value, dateline, order and aggregation**.
 * **value** can be equal with *decimal, hexadecimal, steps_count and execution_time*.
-* **dateline** can be equal with a specific date, e.g. 2021-07-22, in order to see data only from one specific day.
+* **dateline** can be equal with a specific date, e.g. '2021-07-23', in order to see data only from one specific day.
 * **order** is a value that gets either 'asc' or 'desc' for filtering the data with asceding or descending order.
 * **aggregation** gets 'AVG' or 'SUM' values in order to return the average or summary of a value.
 
